@@ -1,0 +1,14 @@
+import spacy
+def spacy_ner_multi_lang(text, lang_code):
+    entity_dir = {}
+    ner_lst = []
+    if lang_code == "en" or lang_code == "zh":
+        nlp =spacy.load(lang_code + '_core_web_sm')
+    else: 
+        nlp =spacy.load(lang_code + '_core_news_sm')
+        
+    nlp_txt = nlp(text)
+    for word in nlp_txt.ents:
+        entity_dir[word.text] = [word.text,word.label_, word.start_char, word.end_char]
+        ner_lst.append(entity_dir)
+    return ner_lst
